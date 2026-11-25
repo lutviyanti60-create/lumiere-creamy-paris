@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÈRE CREAMERY | Es Krim Artisan Internasional</title>
+    
+    <!-- Google Fonts: Playfair Display (Serif Mewah) & Plus Jakarta Sans (Sans-serif Bersih) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Konfigurasi Tailwind Custom -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFFDF9',
+                        creamDark: '#F6F1E7',
+                        espresso: '#2C1810',
+                        espressoLight: '#4A2C20',
+                        caramel: '#D4A373',
+                        caramelDark: '#B88352',
+                        berry: '#9D3B53',
+                        mint: '#5B8C7A',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Kustomisasi Scrollbar & Animasi Halus */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFDF9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4A373;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2C1810;
+        }
+
+        /* Animasi Mengambang untuk Ilustrasi Hero */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-14px) rotate(1.5deg); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 6s ease-in-out 2s infinite;
+        }
+
+        /* Reveal on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism Header */
+        .glass-nav {
+            background: rgba(255, 253, 249, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-cream text-espresso font-sans antialiased selection:bg-caramel selection:text-white overflow-x-hidden">
+
+    <!-- ==================== 1. HEADER & NAVIGASI ==================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-espresso/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Brand -->
+                <a href="#beranda" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-full bg-espresso text-caramel flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                        <!-- Custom SVG Cone Icon -->
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M12 2C8.686 2 6 4.686 6 8c0 1.38.467 2.65 1.253 3.663L12 22l4.747-10.337A5.973 5.973 0 0 0 18 8c0-3.314-2.686-6-6-6z"/>
+                            <path d="M7.5 11.5h9"/>
+                            <path d="M9.5 15.5h5"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-serif font-bold text-xl sm:text-2xl tracking-wider text-espresso block leading-none">LUMIÈRE</span>
+                        <span class="text-[10px] tracking-[0.28em] text-caramelDark font-semibold uppercase block mt-0.5">Creamery Paris • Global</span>
+                    </div>
+                </a>
+
+                <!-- Navigasi Desktop -->
+                <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-espresso/80">
+                    <a href="#beranda" class="hover:text-caramelDark transition-colors">Beranda</a>
+                    <a href="#tentang" class="hover:text-caramelDark transition-colors">Tentang Kami</a>
+                    <a href="#katalog" class="hover:text-caramelDark transition-colors">Varian Rasa</a>
+                    <a href="#lokasi" class="hover:text-caramelDark transition-colors">Lokasi Global</a>
+                    <a href="#franchise" class="hover:text-caramelDark transition-colors">Kemitraan</a>
+                    <a href="#kontak" class="hover:text-caramelDark transition-colors">Hubungi Kami</a>
+                </nav>
+
+                <!-- Tombol Aksi & Keranjang/Wishlist -->
+                <div class="flex items-center gap-3">
+                    <!-- Tombol Daftar Pilihan / Wishlist -->
+                    <button id="open-cart-btn" class="relative p-2.5 rounded-full bg-creamDark hover:bg-caramel/20 text-espresso transition-colors" aria-label="Pilihan Rasa Favorit">
+                        <i class="fa-solid fa-bag-shopping text-lg"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-berry text-white text-xs font-bold flex items-center justify-center shadow">0</span>
+                    </button>
+
+                    <!-- Tombol CTA Franchise -->
+                    <a href="#franchise" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-espresso hover:bg-espressoLight text-cream text-sm font-medium shadow-md hover:shadow-lg transition-all">
+                        <span>Mitra Franchise</span>
+                        <i class="fa-solid fa-arrow-right text-xs text-caramel"></i>
+                    </a>
+
+                    <!-- Tombol Menu Mobile -->
+                    <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-xl text-espresso hover:bg-creamDark transition-colors" aria-label="Buka Menu">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Navigasi Mobile -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-cream border-t border-espresso/10 px-6 py-6 space-y-4 shadow-xl">
+            <a href="#beranda" class="mobile-link block py-2 text-base font-medium text-espresso hover:text-caramelDark">Beranda</a>
+            <a href="#tentang" class="mobile-link block py-2 text-base font-medium text-espresso hover:text-caramelDark">Tentang Kami</a>
+            <a href="#katalog" class="mobile-link block py-2 text-base font-medium text-espresso hover:text-caramelDark">Varian Rasa</a>
+            <a href="#lokasi" class="mobile-link block py-2 text-base font-medium text-espresso hover:text-caramelDark">Lokasi Global</a>
+            <a href="#franchise" class="mobile-link block py-2 text-base font-medium text-espresso hover:text-caramelDark">Kemitraan / Franchise</a>
+            <a href="#kontak" class="mobile-link block py-2 text-base font-medium text-espresso hover:text-caramelDark">Hubungi Kami</a>
+            <div class="pt-2">
+                <a href="#franchise" class="mobile-link w-full flex justify-center items-center gap-2 px-5 py-3 rounded-full bg-espresso text-cream font-medium">
+                    <span>Ajukan Kemitraan Global</span>
+                    <i class="fa-solid fa-arrow-right text-xs text-caramel"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 2. HERO SECTION ==================== -->
+    <section id="beranda" class="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden">
+        <!-- Dekorasi Latar Belakang Lembut -->
+        <div class="absolute top-20 right-[-10%] w-96 h-96 bg-caramel/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 left-[-8%] w-80 h-80 bg-berry/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Teks Hero -->
+                <div class="lg:col-span-6 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-creamDark border border-caramel/40 text-xs font-semibold tracking-wider uppercase text-espresso">
+                        <span class="w-2 h-2 rounded-full bg-caramel animate-pulse"></span>
+                        <span>Haute Glacerie Sejak 1984 • Paris & Dunia</span>
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-espresso leading-[1.15]">
+                        Simfoni Rasa <span class="italic font-normal text-caramelDark">Es Krim Artisan</span> Berkelas Dunia.
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-espresso/75 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        Menghadirkan kelezatan murni dari panen terbaik lima benua—mulai dari polong vanila Madagaskar hingga cokelat tunggal Belgia, diracik dengan teknik kuliner tinggi Prancis.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#katalog" class="w-full sm:w-auto px-8 py-4 rounded-full bg-espresso hover:bg-espressoLight text-cream font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2.5">
+                            <span>Jelajahi Rasa</span>
+                            <i class="fa-solid fa-ice-cream text-caramel"></i>
+                        </a>
+                        <a href="#franchise" class="w-full sm:w-auto px-8 py-4 rounded-full bg-transparent hover:bg-creamDark text-espresso border-2 border-espresso/20 hover:border-espresso font-semibold transition-all flex items-center justify-center gap-2">
+                            <span>Peluang Franchise</span>
+                            <i class="fa-solid fa-globe text-caramelDark"></i>
+                        </a>
+                    </div>
+
+                    <!-- Highlight Keunggulan Singkat -->
+                    <div class="pt-6 grid grid-cols-3 gap-4 border-t border-espresso/10 max-w-md mx-auto lg:mx-0">
+                        <div>
+                            <p class="font-serif text-2xl font-bold text-espresso">100%</p>
+                            <p class="text-xs text-espresso/65">Bahan Alami Murni</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl font-bold text-espresso">35+</p>
+                            <p class="text-xs text-espresso/65">Negara Hadir</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl font-bold text-espresso">4.9★</p>
+                            <p class="text-xs text-espresso/65">Rating Kuliner Global</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Hero Estetik (Komposisi Kartu & Ilustrasi SVG Artisan) -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative mx-auto max-w-lg">
+                        <!-- Bingkai Utama -->
+                        <div class="relative rounded-[2.5rem] bg-gradient-to-br from-creamDark via-[#EFE5D5] to-caramel/30 p-6 sm:p-10 shadow-2xl border border-white">
+                            <!-- Ilustrasi SVG Gelato Coupe Mewah -->
+                            <div class="animate-float flex justify-center items-center py-4">
+                                <svg viewBox="0 0 360 360" class="w-full max-w-[320px] h-auto drop-shadow-xl" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Lingkaran Latar Emas -->
+                                    <circle cx="180" cy="180" r="145" fill="#FFFDF9" opacity="0.85"/>
+                                    <circle cx="180" cy="180" r="132" fill="none" stroke="#D4A373" stroke-width="1.5" stroke-dasharray="6 6"/>
+                                    
+                                    <!-- Wafer Roll -->
+                                    <g transform="rotate(24 235 105)">
+                                        <rect x="220" y="55" width="24" height="95" rx="6" fill="#D4A373"/>
+                                        <line x1="220" y1="70" x2="244" y2="82" stroke="#9C6B3B" stroke-width="3"/>
+                                        <line x1="220" y1="90" x2="244" y2="102" stroke="#9C6B3B" stroke-width="3"/>
+                                        <line x1="220" y1="110" x2="244" y2="122" stroke="#9C6B3B" stroke-width="3"/>
+                                    </g>
+
+                                    <!-- Daun Mint -->
+                                    <path d="M125 110 C100 90, 95 65, 125 65 C140 75, 138 95, 125 110 Z" fill="#5B8C7A"/>
+                                    <path d="M125 110 L113 78" stroke="#FFFDF9" stroke-width="1.5" stroke-linecap="round"/>
+
+                                    <!-- Scoop 3 (Atas - Vanilla Bean & Gold Leaf) -->
+                                    <circle cx="180" cy="118" r="46" fill="#FAF0DC"/>
+                                    <circle cx="170" cy="108" r="2" fill="#2C1810" opacity="0.6"/>
+                                    <circle cx="192" cy="115" r="1.8" fill="#2C1810" opacity="0.6"/>
+                                    <circle cx="178" cy="128" r="2" fill="#2C1810" opacity="0.6"/>
+                                    <circle cx="165" cy="124" r="1.5" fill="#2C1810" opacity="0.6"/>
+                                    <!-- Gold Flake -->
+                                    <polygon points="183,96 191,100 186,107 179,103" fill="#D4A373"/>
+
+                                    <!-- Scoop 1 (Kiri - Berry Rose) -->
+                                    <circle cx="142" cy="162" r="48" fill="#9D3B53"/>
+                                    <path d="M105 162 Q125 148 145 162 T185 162" fill="none" stroke="#B8536C" stroke-width="4" stroke-linecap="round"/>
+
+                                    <!-- Scoop 2 (Kanan - Belgian Dark Chocolate) -->
+                                    <circle cx="218" cy="162" r="48" fill="#3E2217"/>
+                                    <path d="M180 160 Q205 145 225 160 T260 158" fill="none" stroke="#5A3425" stroke-width="4" stroke-linecap="round"/>
+
+                                    <!-- Mangkuk Kristal / Silver Coupe -->
+                                    <path d="M92 178 C92 232, 135 256, 180 256 C225 256, 268 232, 268 178 Z" fill="#2C1810"/>
+                                    <path d="M98 184 L262 184" stroke="#D4A373" stroke-width="3"/>
+                                    <!-- Kaki Mangkuk -->
+                                    <path d="M170 255 L164 295 L196 295 L190 255 Z" fill="#D4A373"/>
+                                    <ellipse cx="180" cy="298" rx="46" ry="9" fill="#2C1810"/>
+                                    <ellipse cx="180" cy="296" rx="42" ry="6" fill="#D4A373"/>
+                                </svg>
+                            </div>
+
+                            <!-- Kartu Mengambang 1: Bahan Signature -->
+                            <div class="animate-float-delayed absolute -left-4 sm:-left-8 bottom-12 bg-cream/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl shadow-xl border border-caramel/30 flex items-center gap-3 max-w-[220px]">
+                                <div class="w-10 h-10 rounded-xl bg-mint/15 text-mint flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-leaf text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-espresso">Single-Origin</p>
+                                    <p class="text-[11px] text-espresso/70">Pistachio Bronte & Vanila Bourbon</p>
+                                </div>
+                            </div>
+
+                            <!-- Kartu Mengambang 2: Penghargaan -->
+                            <div class="animate-float absolute -right-3 sm:-right-6 top-10 bg-espresso text-cream p-3.5 sm:p-4 rounded-2xl shadow-xl flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-caramel text-espresso flex items-center justify-center shrink-0 font-bold">
+                                    <i class="fa-solid fa-award"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-caramel">World Gelato Award</p>
+                                    <p class="text-[11px] text-cream/80">Pemenang Emas 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. TENTANG KAMI (HERITAGE & QUALITY) ==================== -->
+    <section id="tentang" class="py-20 lg:py-28 bg-creamDark/70 border-y border-espresso/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Kolom Kiri: Visual & Kutipan -->
+                <div class="lg:col-span-5 reveal">
+                    <div class="relative rounded-3xl overflow-hidden bg-espresso text-cream p-8 sm:p-10 shadow-2xl">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-caramel/20 rounded-full -mr-16 -mt-16"></div>
+                        <span class="inline-block text-caramel text-xs font-bold uppercase tracking-[0.25em] mb-4">Warisan Kuliner</span>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-snug mb-6">
+                            "Setiap sendok adalah perjalanan melintasi kebun terbaik di dunia."
+                        </h3>
+                        <p class="text-cream/80 text-sm leading-relaxed mb-8">
+                            Berawal dari sebuah bengkel es krim kecil di Saint-Germain-des-Prés, Paris pada tahun 1984, Lumière Creamery memadukan teknik pengadukan lambat tradisional dengan eksplorasi botani modern tanpa perisa buatan maupun pengawet.
+                        </p>
+                        <div class="flex items-center gap-4 pt-4 border-t border-cream/15">
+                            <div class="w-12 h-12 rounded-full bg-caramel/20 border border-caramel flex items-center justify-center font-serif font-bold text-caramel text-lg">
+                                LV
+                            </div>
+                            <div>
+                                <p class="font-serif font-semibold text-base text-cream">Lutviyanti</p>
+                                <p class="text-xs text-caramel">Master Maître Glacier & Pendiri</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: Narasi & 4 Pilar Bahan Premium Dunia -->
+                <div class="lg:col-span-7 space-y-8 reveal">
+                    <div>
+                        <span class="text-caramelDark font-bold text-xs uppercase tracking-[0.2em]">Filosofi & Kualitas</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espresso mt-2 mb-4">
+                            Bahan Baku Langka dari Penjuru Dunia
+                        </h2>
+                        <p class="text-espresso/75 leading-relaxed">
+                            Kami bermitra langsung dengan petani berkelanjutan di empat benua untuk memastikan setiap bahan dipanen pada puncak kematangannya, lalu diolah segar setiap pagi di dapur regional kami.
+                        </p>
+                    </div>
+
+                    <!-- Grid 4 Bahan Utama -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <!-- Bahan 1 -->
+                        <div class="bg-cream p-5 rounded-2xl border border-espresso/10 hover:border-caramel transition-all shadow-sm hover:shadow-md">
+                            <div class="flex items-center gap-3 mb-2.5">
+                                <span class="w-9 h-9 rounded-full bg-caramel/20 text-caramelDark flex items-center justify-center font-bold text-sm">01</span>
+                                <h4 class="font-serif font-bold text-lg text-espresso">Vanila Sava, Madagaskar</h4>
+                            </div>
+                            <p class="text-sm text-espresso/70 leading-relaxed">
+                                Polong vanila Bourbon organik yang dikeringkan di bawah sinar matahari tropis selama 6 bulan untuk aroma floral yang dalam.
+                            </p>
+                        </div>
+
+                        <!-- Bahan 2 -->
+                        <div class="bg-cream p-5 rounded-2xl border border-espresso/10 hover:border-caramel transition-all shadow-sm hover:shadow-md">
+                            <div class="flex items-center gap-3 mb-2.5">
+                                <span class="w-9 h-9 rounded-full bg-espresso/10 text-espresso flex items-center justify-center font-bold text-sm">02</span>
+                                <h4 class="font-serif font-bold text-lg text-espresso">Kakao Couverture, Belgia</h4>
+                            </div>
+                            <p class="text-sm text-espresso/70 leading-relaxed">
+                                Cokelat hitam 72% single-estate yang dilelehkan perlahan untuk tekstur beludru yang lumer sempurna di lidah.
+                            </p>
+                        </div>
+
+                        <!-- Bahan 3 -->
+                        <div class="bg-cream p-5 rounded-2xl border border-espresso/10 hover:border-caramel transition-all shadow-sm hover:shadow-md">
+                            <div class="flex items-center gap-3 mb-2.5">
+                                <span class="w-9 h-9 rounded-full bg-mint/20 text-mint flex items-center justify-center font-bold text-sm">03</span>
+                                <h4 class="font-serif font-bold text-lg text-espresso">Matcha Uji, Kyoto Jepang</h4>
+                            </div>
+                            <p class="text-sm text-espresso/70 leading-relaxed">
+                                Daun teh hijau panen pertama yang digiling dengan batu granit tradisional, menghasilkan rasa umami lembut tanpa pahit.
+                            </p>
+                        </div>
+
+                        <!-- Bahan 4 -->
+                        <div class="bg-cream p-5 rounded-2xl border border-espresso/10 hover:border-caramel transition-all shadow-sm hover:shadow-md">
+                            <div class="flex items-center gap-3 mb-2.5">
+                                <span class="w-9 h-9 rounded-full bg-berry/15 text-berry flex items-center justify-center font-bold text-sm">04</span>
+                                <h4 class="font-serif font-bold text-lg text-espresso">Pistachio Bronte, Sisilia</h4>
+                            </div>
+                            <p class="text-sm text-espresso/70 leading-relaxed">
+                                Dijuluki "Emas Hijau" dari lereng Gunung Etna, dipanggang ringan untuk mengeluarkan minyak kacang yang harum dan gurih.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. KATALOG VARIAN RASA ==================== -->
+    <section id="katalog" class="py-20 lg:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header Katalog -->
+            <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+                <span class="text-caramelDark font-bold text-xs uppercase tracking-[0.2em]">Koleksi Signature</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-espresso mt-2 mb-4">
+                    Kurasi Varian Rasa Dunia
+                </h2>
+                <p class="text-espresso/75 text-sm sm:text-base">
+                    Temukan kreasi ikonik kami yang dikelompokkan berdasarkan karakter rasa. Klik kartu untuk melihat profil rasa lengkap atau simpan ke daftar pilihan Anda.
+                </p>
+            </div>
+
+            <!-- Filter Kategori Interaktif -->
+            <div class="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-12 reveal" id="flavor-filters">
+                <button data-filter="all" class="filter-btn active px-6 py-2.5 rounded-full text-sm font-semibold bg-espresso text-cream shadow-md transition-all">
+                    Semua Varian
+                </button>
+                <button data-filter="klasik" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-creamDark text-espresso hover:bg-caramel/30 transition-all">
+                    Klasik Artisan
+                </button>
+                <button data-filter="eksotis" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-creamDark text-espresso hover:bg-caramel/30 transition-all">
+                    Eksotis Global
+                </button>
+                <button data-filter="vegan" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-creamDark text-espresso hover:bg-caramel/30 transition-all">
+                    Vegan & Sorbet
+                </button>
+            </div>
+
+            <!-- Grid Kartu Produk (Diisi via JS) -->
+            <div id="flavors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <!-- Kartu produk akan dirender secara dinamis -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. JEJAK GLOBAL (GLOBAL PRESENCE) ==================== -->
+    <section id="lokasi" class="py-20 lg:py-28 bg-espresso text-cream relative overflow-hidden">
+        <!-- Ornamen Peta / Lingkaran Latar -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
+            <svg class="w-[900px] h-[900px]" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="90" fill="none" stroke="#D4A373" stroke-width="0.5" stroke-dasharray="2 2"/>
+                <circle cx="100" cy="100" r="65" fill="none" stroke="#D4A373" stroke-width="0.5"/>
+                <circle cx="100" cy="100" r="40" fill="none" stroke="#D4A373" stroke-width="0.5" stroke-dasharray="4 2"/>
+                <ellipse cx="100" cy="100" rx="90" ry="35" fill="none" stroke="#D4A373" stroke-width="0.5"/>
+                <ellipse cx="100" cy="100" rx="35" ry="90" fill="none" stroke="#D4A373" stroke-width="0.5"/>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Header & Statistik -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-14 reveal">
+                <div class="lg:col-span-7">
+                    <span class="text-caramel font-bold text-xs uppercase tracking-[0.25em]">Jaringan Internasional</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-cream mt-2 mb-4">
+                        Hadir di Ibu Kota Kuliner Dunia
+                    </h2>
+                    <p class="text-cream/75 max-w-xl">
+                        Dari butik flagship di Champs-Élysées hingga lounge modern di Jakarta dan Tokyo, setiap gerai Lumière menghadirkan standar kemewahan rasa yang seragam.
+                    </p>
+                </div>
+
+                <!-- Statistik Global -->
+                <div class="lg:col-span-5 grid grid-cols-3 gap-4 bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10">
+                    <div class="text-center">
+                        <p class="font-serif text-3xl sm:text-4xl font-bold text-caramel">35+</p>
+                        <p class="text-xs text-cream/70 mt-1">Negara</p>
+                    </div>
+                    <div class="text-center border-x border-white/10">
+                        <p class="font-serif text-3xl sm:text-4xl font-bold text-caramel">450+</p>
+                        <p class="text-xs text-cream/70 mt-1">Butik & Gerai</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="font-serif text-3xl sm:text-4xl font-bold text-caramel">80+</p>
+                        <p class="text-xs text-cream/70 mt-1">Varian Rasa</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Region Cabang -->
+            <div class="flex flex-wrap gap-2.5 mb-8 reveal" id="region-filters">
+                <button data-region="all" class="region-btn active px-5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-caramel text-espresso transition-all">
+                    Semua Wilayah
+                </button>
+                <button data-region="eropa" class="region-btn px-5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-white/10 text-cream hover:bg-white/20 transition-all">
+                    Eropa
+                </button>
+                <button data-region="asia" class="region-btn px-5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-white/10 text-cream hover:bg-white/20 transition-all">
+                    Asia-Pasifik
+                </button>
+                <button data-region="amerika" class="region-btn px-5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-white/10 text-cream hover:bg-white/20 transition-all">
+                    Amerika
+                </button>
+            </div>
+
+            <!-- Daftar Cabang Utama -->
+            <div id="locations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dirender melalui JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. PELUANG KEMITRAAN / FRANCHISE ==================== -->
+    <section id="franchise" class="py-20 lg:py-28 bg-creamDark/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-cream rounded-[2.5rem] shadow-xl border border-espresso/10 overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    <!-- Info Kemitraan (Kiri) -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-espresso to-espressoLight text-cream p-8 sm:p-12 flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <span class="inline-block px-3.5 py-1 rounded-full bg-caramel/20 text-caramel text-xs font-bold uppercase tracking-wider">
+                                Ekspansi Global 2026
+                            </span>
+                            <h2 class="font-serif text-3xl sm:text-4xl font-bold leading-tight">
+                                Jadilah Mitra Eksklusif Lumière Creamery
+                            </h2>
+                            <p class="text-cream/80 text-sm leading-relaxed">
+                                Kami membuka peluang kemitraan <em>Master Franchise</em> dan <em>Flagship Boutique</em> bagi investor visioner yang ingin membawa pengalaman es krim artisan kelas dunia ke kota Anda.
+                            </p>
+
+                            <ul class="space-y-4 pt-2 text-sm">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-caramel mt-1"></i>
+                                    <span><strong>Rantai Pasok Terintegrasi:</strong> Suplai bahan dasar premium langsung dari pusat produksi kami.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-caramel mt-1"></i>
+                                    <span><strong>Akademi Maître Glacier:</strong> Pelatihan operasional & penyajian intensif di Paris.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-caramel mt-1"></i>
+                                    <span><strong>Desain Arsitektur Butik:</strong> Panduan interior mewah yang ikonik & Instagrammable.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-10 pt-6 border-t border-white/15">
+                            <p class="text-xs text-cream/60">Tim Pengembangan Bisnis Global:</p>
+                            <p class="font-serif text-lg text-caramel mt-0.5">franchise@lumierecreamery.com</p>
+                        </div>
+                    </div>
+
+                    <!-- Formulir Kemitraan Interaktif (Kanan) -->
+                    <div class="lg:col-span-7 p-8 sm:p-12">
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-espresso mb-2">
+                            Formulir Minat Kemitraan
+                        </h3>
+                        <p class="text-sm text-espresso/70 mb-8">
+                            Lengkapi profil singkat Anda. Konsultan ekspansi internasional kami akan menghubungi Anda dalam 2x24 jam dengan prospektus investasi.
+                        </p>
+
+                        <form id="franchise-form" class="space-y-5" novalidate>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="f-name" class="block text-xs font-bold uppercase tracking-wider text-espresso/80 mb-2">Nama Lengkap *</label>
+                                    <input type="text" id="f-name" required placeholder="Contoh: Pratama Wijaya" class="w-full px-4 py-3 rounded-xl bg-creamDark/70 border border-espresso/15 focus:border-caramel focus:bg-white focus:outline-none text-sm transition-all">
+                                </div>
+                                <div>
+                                    <label for="f-email" class="block text-xs font-bold uppercase tracking-wider text-espresso/80 mb-2">Email Bisnis *</label>
+                                    <input type="email" id="f-email" required placeholder="nama@perusahaan.com" class="w-full px-4 py-3 rounded-xl bg-creamDark/70 border border-espresso/15 focus:border-caramel focus:bg-white focus:outline-none text-sm transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="f-phone" class="block text-xs font-bold uppercase tracking-wider text-espresso/80 mb-2">Nomor Telepon / WhatsApp *</label>
+                                    <input type="tel" id="f-phone" required placeholder="+62 812 3456 7890" class="w-full px-4 py-3 rounded-xl bg-creamDark/70 border border-espresso/15 focus:border-caramel focus:bg-white focus:outline-none text-sm transition-all">
+                                </div>
+                                <div>
+                                    <label for="f-city" class="block text-xs font-bold uppercase tracking-wider text-espresso/80 mb-2">Kota & Negara Target *</label>
+                                    <input type="text" id="f-city" required placeholder="Contoh: Surabaya, Indonesia" class="w-full px-4 py-3 rounded-xl bg-creamDark/70 border border-espresso/15 focus:border-caramel focus:bg-white focus:outline-none text-sm transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="f-type" class="block text-xs font-bold uppercase tracking-wider text-espresso/80 mb-2">Skema Kemitraan</label>
+                                    <select id="f-type" class="w-full px-4 py-3 rounded-xl bg-creamDark/70 border border-espresso/15 focus:border-caramel focus:bg-white focus:outline-none text-sm transition-all">
+                                        <option value="Single Boutique">Single Flagship Boutique</option>
+                                        <option value="Multi-Unit">Multi-Unit Development (3-5 Gerai)</option>
+                                        <option value="Master Franchise">Master Franchise Nasional</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="f-capital" class="block text-xs font-bold uppercase tracking-wider text-espresso/80 mb-2">Estimasi Kesiapan Investasi</label>
+                                    <select id="f-capital" class="w-full px-4 py-3 rounded-xl bg-creamDark/70 border border-espresso/15 focus:border-caramel focus:bg-white focus:outline-none text-sm transition-all">
+                                        <option value="150k-300k">USD $150.000 – $300.000</option>
+                                        <option value="300k-750k">USD $300.000 – $750.000</option>
+                                        <option value="750k+">Di atas USD $750.000</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="f-message" class="block text-xs font-bold uppercase tracking-wider text-espresso/80 mb-2">Catatan atau Latar Belakang Bisnis</label>
+                                <textarea id="f-message" rows="3" placeholder="Ceritakan singkat pengalaman ritel/F&B atau lokasi potensial Anda..." class="w-full px-4 py-3 rounded-xl bg-creamDark/70 border border-espresso/15 focus:border-caramel focus:bg-white focus:outline-none text-sm transition-all"></textarea>
+                            </div>
+
+                            <!-- Area Pesan Validasi / Sukses -->
+                            <div id="form-feedback" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+
+                            <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-full bg-espresso hover:bg-espressoLight text-cream font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2.5">
+                                <span>Kirim Permohonan Kemitraan</span>
+                                <i class="fa-solid fa-paper-plane text-caramel text-xs"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. FOOTER ==================== -->
+    <footer id="kontak" class="bg-espresso text-cream pt-16 pb-10 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+                <!-- Brand & Deskripsi -->
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-caramel text-espresso flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-ice-cream text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="font-serif font-bold text-xl tracking-wider text-cream block leading-none">LUMIÈRE</span>
+                            <span class="text-[10px] tracking-[0.28em] text-caramel font-semibold uppercase block mt-0.5">Creamery International</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-cream/70 leading-relaxed">
+                        Menghadirkan seni pembuatan es krim artisan Prancis ke panggung kuliner internasional sejak 1984. Diciptakan untuk penikmat rasa sejati.
+                    </p>
+                    <!-- Sosial Media -->
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#kontak" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-caramel hover:text-espresso flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#kontak" aria-label="TikTok" class="w-9 h-9 rounded-full bg-white/10 hover:bg-caramel hover:text-espresso flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#kontak" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-white/10 hover:bg-caramel hover:text-espresso flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#kontak" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white/10 hover:bg-caramel hover:text-espresso flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tautan Cepat -->
+                <div class="lg:col-span-2 space-y-3">
+                    <h4 class="font-serif font-bold text-base text-caramel">Navigasi</h4>
+                    <ul class="space-y-2 text-sm text-cream/75">
+                        <li><a href="#beranda" class="hover:text-caramel transition-colors">Beranda</a></li>
+                        <li><a href="#tentang" class="hover:text-caramel transition-colors">Warisan Kami</a></li>
+                        <li><a href="#katalog" class="hover:text-caramel transition-colors">Koleksi Rasa</a></li>
+                        <li><a href="#lokasi" class="hover:text-caramel transition-colors">Butik Global</a></li>
+                        <li><a href="#franchise" class="hover:text-caramel transition-colors">Kemitraan</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kantor Pusat -->
+                <div class="lg:col-span-3 space-y-3">
+                    <h4 class="font-serif font-bold text-base text-caramel">Kantor Pusat & Asia Hub</h4>
+                    <ul class="space-y-2.5 text-sm text-cream/75">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-location-dot text-caramel mt-1"></i>
+                            <span><strong>Paris HQ:</strong> 42 Rue Saint-Honoré, 75001 Paris, Prancis</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-building text-caramel mt-1"></i>
+                            <span><strong>Jakarta Hub:</strong> Pacific Place Lt. 1, SCBD, Jakarta Selatan</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-phone text-caramel"></i>
+                            <span>+33 1 42 68 55 00 / +62 21 5088 9100</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Signup -->
+                <div class="lg:col-span-3 space-y-3">
+                    <h4 class="font-serif font-bold text-base text-caramel">Buletin Musiman</h4>
+                    <p class="text-xs text-cream/70 leading-relaxed">
+                        Dapatkan undangan mencicipi varian edisi terbatas musiman dan kabar pembukaan gerai baru.
+                    </p>
+                    <form id="newsletter-form" class="flex flex-col gap-2.5 pt-1">
+                        <input type="email" id="newsletter-email" required placeholder="Alamat email Anda..." class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-cream placeholder:text-cream/45 text-sm focus:outline-none focus:border-caramel">
+                        <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-caramel hover:bg-caramelDark text-espresso font-bold text-sm transition-colors">
+                            Berlangganan
+                        </button>
+                    </form>
+                    <p id="newsletter-msg" class="text-xs text-mint hidden font-medium"></p>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-cream/55">
+                <p>&copy; 2026 Lumière Creamery International. Seluruh Hak Cipta Dilindungi.</p>
+                <div class="flex gap-6">
+                    <a href="#kontak" class="hover:text-caramel transition-colors">Kebijakan Privasi</a>
+                    <a href="#kontak" class="hover:text-caramel transition-colors">Syarat & Ketentuan</a>
+                    <a href="#kontak" class="hover:text-caramel transition-colors">Sertifikasi Halal & Organik</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL DETAIL VARIAN RASA ==================== -->
+    <div id="flavor-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-espresso/75 backdrop-blur-sm">
+        <div class="bg-cream rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-caramel/30 transform transition-all">
+            <div id="modal-banner" class="h-60 sm:h-64 relative overflow-hidden bg-espresso">
+                <img id="modal-image" src="" alt="Detail Varian Es Krim" class="w-full h-full object-cover object-center transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso/70 via-espresso/15 to-transparent pointer-events-none"></div>
+                <button id="close-modal-btn" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-cream/90 text-espresso hover:bg-espresso hover:text-cream flex items-center justify-center shadow-md transition-colors z-10" aria-label="Tutup Detail">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="absolute bottom-4 left-6 right-6 flex items-center justify-between text-cream">
+                    <span id="modal-origin" class="text-xs font-semibold bg-espresso/75 backdrop-blur-xs px-3 py-1 rounded-full border border-white/15 flex items-center gap-1.5">
+                        <i class="fa-solid fa-earth-americas text-caramel"></i> <span></span>
+                    </span>
+                </div>
+            </div>
+            <div class="p-6 sm:p-8 space-y-4">
+                <div class="flex items-center justify-between gap-2">
+                    <span id="modal-category" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-caramel/20 text-caramelDark"></span>
+                    <span class="text-xs font-medium text-mint flex items-center gap-1">
+                        <i class="fa-solid fa-certificate"></i> 100% Bahan Alami
+                    </span>
+                </div>
+                <h3 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-espresso"></h3>
+                <p id="modal-desc" class="text-sm text-espresso/80 leading-relaxed"></p>
+                
+                <!-- Catatan Tasting -->
+                <div class="bg-creamDark p-4 rounded-2xl space-y-1.5 border border-espresso/5">
+                    <p class="text-xs font-bold uppercase tracking-wider text-espresso/70">Profil Tasting & Tekstur</p>
+                    <p id="modal-notes" class="text-xs sm:text-sm text-espresso font-medium"></p>
+                </div>
+
+                <div class="pt-3 flex items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs text-espresso/60 block">Harga Butik (Pint / Scoop)</span>
+                        <span id="modal-price" class="font-serif text-xl font-bold text-espresso"></span>
+                    </div>
+                    <button id="modal-add-btn" class="px-6 py-3 rounded-full bg-espresso hover:bg-espressoLight text-cream text-sm font-semibold shadow-md transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-plus text-caramel"></i>
+                        <span>Tambah ke Pilihan</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DRAWER DAFTAR PILIHAN RASA (WISHLIST / ORDER) ==================== -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 hidden justify-end bg-espresso/60 backdrop-blur-xs">
+        <div class="bg-cream w-full max-w-md h-full shadow-2xl flex flex-col justify-between p-6 sm:p-8">
+            <div>
+                <div class="flex items-center justify-between pb-5 border-b border-espresso/10">
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-espresso">Kotak Pilihan Anda</h3>
+                        <p class="text-xs text-espresso/65">Kurasi rasa favorit untuk pemesanan butik</p>
+                    </div>
+                    <button id="close-cart-btn" class="w-9 h-9 rounded-full bg-creamDark hover:bg-espresso hover:text-cream flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Daftar Item -->
+                <div id="cart-items-container" class="py-6 space-y-4 max-h-[60vh] overflow-y-auto">
+                    <!-- Diisi via JS -->
+                </div>
+            </div>
+
+            <div class="pt-5 border-t border-espresso/10 space-y-4">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-espresso/75">Total Estimasi</span>
+                    <span id="cart-total" class="font-serif text-xl font-bold text-espresso">Rp 0</span>
+                </div>
+                <button id="checkout-btn" class="w-full py-3.5 rounded-full bg-espresso hover:bg-espressoLight text-cream font-semibold text-sm shadow-lg transition-all">
+                    Reservasi Pengambilan di Gerai
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-espresso text-cream px-5 py-3.5 rounded-2xl shadow-2xl border border-caramel/40 flex items-center gap-3 text-sm font-medium">
+        <i class="fa-solid fa-circle-check text-caramel text-lg"></i>
+        <span id="toast-message">Rasa ditambahkan ke daftar pilihan!</span>
+    </div>
+
+    <!-- ==================== JAVASCRIPT INTERAKTIVITAS ==================== -->
+    <script>
+        // 1. DATA KATALOG VARIAN RASA DENGAN FOTO REAL HIGH-RESOLUTION YANG TEPAT
+        const flavorsData = [
+            {
+                id: 1,
+                name: "Madagascar Bourbon Vanilla",
+                category: "klasik",
+                categoryLabel: "Klasik Artisan",
+                origin: "Sava, Madagaskar",
+                shortDesc: "Krim susu segar pegunungan Alpen yang diinfusi polong vanila hitam asli.",
+                fullDesc: "Diracik menggunakan ribuan biji vanila Bourbon organik dari wilayah Sava, Madagaskar. Proses pematangan dingin selama 48 jam menghasilkan karakter aromatik yang hangat, lembut, dan kaya.",
+                notes: "Aroma bunga anggrek, karamel ringan, tekstur ultra-creamy.",
+                price: 85000,
+                image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=800&q=85",
+                fallbackBg: "F7EEDB"
+            },
+            {
+                id: 2,
+                name: "Bronte Pistachio Royal",
+                category: "klasik",
+                categoryLabel: "Klasik Artisan",
+                origin: "Sisilia, Italia",
+                shortDesc: "Pasta pistachio hijau vulkanik panggang dengan taburan kacang renyah.",
+                fullDesc: "Menggunakan pistachio DOP eksklusif yang hanya dipanen dua tahun sekali di tanah vulkanik Gunung Etna. Dipanggang perlahan untuk mempertahankan warna hijau zamrud alami.",
+                notes: "Gurih kacang panggang, sedikit asin mineral, lumer di akhir.",
+                price: 95000,
+                image: "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=800&q=85",
+                fallbackBg: "E3EFE8"
+            },
+            {
+                id: 3,
+                name: "Uji Ceremonial Matcha",
+                category: "eksotis",
+                categoryLabel: "Eksotis Global",
+                origin: "Kyoto, Jepang",
+                shortDesc: "Teh hijau seremonial grade A dengan keseimbangan umami dan manis lembut.",
+                fullDesc: "Daun tencha pilihan yang dinaungi dari sinar matahari selama 3 minggu sebelum panen di perbukitan Uji, Kyoto. Digiling halus untuk menghasilkan warna hijau pekat dan rasa bersih.",
+                notes: "Umami segar, sedikit sepat elegan, aroma daun teh muda.",
+                price: 92000,
+                image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=800&q=85",
+                fallbackBg: "E1EDE2"
+            },
+            {
+                id: 4,
+                name: "Belgian 72% Noir Truffle",
+                category: "klasik",
+                categoryLabel: "Klasik Artisan",
+                origin: "Antwerp, Belgia",
+                shortDesc: "Cokelat hitam pekat dengan pusaran ganache dan serpihan kakao panggang.",
+                fullDesc: "Perpaduan cokelat couverture Belgia 72% dengan bubuk kakao Belanda tanpa pemanis berlebih, menciptakan pengalaman cokelat yang dalam, intens, namun tetap halus.",
+                notes: "Cokelat pekat, sentuhan kopi panggang, tekstur velvety.",
+                price: 90000,
+                image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=85",
+                fallbackBg: "EFE6E1"
+            },
+            {
+                id: 5,
+                name: "Rosewater & Ispahan Lychee",
+                category: "eksotis",
+                categoryLabel: "Eksotis Global",
+                origin: "Damaskus & Provence",
+                shortDesc: "Perpaduan kelopak mawar aromatik, leci manis, dan sedikit raspberry.",
+                fullDesc: "Terinspirasi dari patisserie klasik Prancis, menyatukan distilasi air mawar Damaskus dengan sari buah leci segar dan aksen raspberry yang menyegarkan.",
+                notes: "Floral lembut, manis buah tropis, sentuhan asam segar.",
+                price: 88000,
+                image: "https://images.unsplash.com/photo-1557142046-c704a3adf364?auto=format&fit=crop&w=800&q=85",
+                fallbackBg: "F9E6EB"
+            },
+            {
+                id: 6,
+                name: "Alphonso Mango & Passion Sorbet",
+                category: "vegan",
+                categoryLabel: "Vegan & Sorbet",
+                origin: "Ratnagiri, India",
+                shortDesc: "Sorbet 100% berbasis buah mangga Alphonso raja dan markisa segar.",
+                fullDesc: "Bebas susu (100% vegan) dengan kandungan 65% daging buah mangga Alphonso matang pohon yang dipadukan dengan markisa untuk sensasi tropis yang cerah.",
+                notes: "Manis eksotis intens, asam menyegarkan, bebas lemak susu.",
+                price: 82000,
+                image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=85",
+                fallbackBg: "FDF0D5"
+            },
+            {
+                id: 7,
+                name: "Salted Breton Caramel",
+                category: "klasik",
+                categoryLabel: "Klasik Artisan",
+                origin: "Brittany, Prancis",
+                shortDesc: "Karamel mentega asin khas Brittany dengan kristal garam laut Guérande.",
+                fullDesc: "Gula tebu yang dikaramelisasi hingga berwarna kuning keemasan tua, dipadukan dengan mentega kultur Prancis dan taburan fleur de sel alami.",
+                notes: "Manis karamel bakar, kontras gurih garam laut yang elegan.",
+                price: 89000,
+                image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=800&q=85",
+                fallbackBg: "F5E8D7"
+            },
+            {
+                id: 8,
+                name: "Dark Berry & Hibiscus Sorbet",
+                category: "vegan",
+                categoryLabel: "Vegan & Sorbet",
+                origin: "Willamette Valley, AS",
+                shortDesc: "Sorbet beri hutan liar dengan seduhan kelopak bunga rosella merah.",
+                fullDesc: "Kombinasi blackberry, blackcurrant, dan blueberry yang diinfusi dengan teh hibiscus organik, menghasilkan warna merah delima alami yang memikat.",
+                notes: "Beri segar yang tajam, aroma herbal hibiscus, ringan.",
+                price: 84000,
+                image: "https://images.unsplash.com/photo-1488900128323-21503983a07e?auto=format&fit=crop&w=800&q=85",
+                fallbackBg: "F3E2E8"
+            }
+        ];
+
+        // 2. DATA LOKASI CABANG GLOBAL
+        const locationsData = [
+            {
+                city: "Paris (Flagship)",
+                country: "Prancis",
+                region: "eropa",
+                address: "42 Rue Saint-Honoré, 75001 Paris",
+                hours: "10:00 – 22:30 CET",
+                badge: "Butik Pusat"
+            },
+            {
+                city: "Jakarta",
+                country: "Indonesia",
+                region: "asia",
+                address: "Pacific Place Mall Lt. 1, SCBD, Jakarta Selatan",
+                hours: "10:00 – 22:00 WIB",
+                badge: "Asia Flagship"
+            },
+            {
+                city: "Tokyo",
+                country: "Jepang",
+                region: "asia",
+                address: "Ginza Six 2F, Chuo-ku, Tokyo",
+                hours: "10:30 – 21:00 JST",
+                badge: "Tea & Gelato Lounge"
+            },
+            {
+                city: "London",
+                country: "Inggris",
+                region: "eropa",
+                address: "18 New Bond Street, Mayfair, London",
+                hours: "11:00 – 22:00 GMT",
+                badge: "Butik Eksklusif"
+            },
+            {
+                city: "New York",
+                country: "Amerika Serikat",
+                region: "amerika",
+                address: "458 Broome St, SoHo, New York, NY",
+                hours: "11:00 – 23:00 EST",
+                badge: "Americas Hub"
+            },
+            {
+                city: "Singapura",
+                country: "Singapura",
+                region: "asia",
+                address: "Marina Bay Sands, Canal Level B2",
+                hours: "10:00 – 22:30 SGT",
+                badge: "Butik Resort"
+            }
+        ];
+
+        // STATE KERANJANG & MODAL
+        let cart = [];
+        let currentModalFlavor = null;
+
+        // FORMAT RUPIAH
+        function formatRupiah(num) {
+            return 'Rp ' + num.toLocaleString('id-ID');
+        }
+
+        // TAMPILKAN TOAST NOTIFIKASI
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            if (!toast || !toastMsg) return;
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // 3. RENDER KATALOG VARIAN RASA DENGAN FOTO REAL
+        function renderFlavors(filter = 'all') {
+            const grid = document.getElementById('flavors-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? flavorsData 
+                : flavorsData.filter(item => item.category === filter);
+
+            filtered.forEach(flavor => {
+                const fallbackUrl = `https://placehold.co/600x450/${flavor.fallbackBg}/2C1810?text=${encodeURIComponent(flavor.name)}`;
+                const card = document.createElement('div');
+                card.className = "group bg-cream rounded-3xl border border-espresso/10 hover:border-caramel overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between";
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- Area Foto Real Produk -->
+                        <div onclick="openFlavorModal(${flavor.id})" class="h-52 relative overflow-hidden bg-creamDark cursor-pointer">
+                            <img 
+                                src="${flavor.image}" 
+                                alt="${flavor.name}" 
+                                loading="lazy"
+                                onerror="this.onerror=null;this.src='${fallbackUrl}';"
+                                class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-espresso/45 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-cream/95 backdrop-blur-xs text-[11px] font-bold text-espresso shadow-sm">
+                                ${flavor.categoryLabel}
+                            </span>
+                            <span class="absolute bottom-3 right-3.5 px-2.5 py-1 rounded-full bg-espresso/85 text-cream text-xs font-serif font-semibold backdrop-blur-xs">
+                                ${formatRupiah(flavor.price)}
+                            </span>
+                        </div>
+
+                        <!-- Konten Kartu -->
+                        <div class="p-5 sm:p-6 space-y-2.5">
+                            <div class="flex items-center gap-1.5 text-xs text-caramelDark font-semibold">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>${flavor.origin}</span>
+                            </div>
+                            <h3 onclick="openFlavorModal(${flavor.id})" class="font-serif text-xl font-bold text-espresso group-hover:text-caramelDark transition-colors cursor-pointer">
+                                ${flavor.name}
+                            </h3>
+                            <p class="text-xs sm:text-sm text-espresso/70 leading-relaxed line-clamp-2">
+                                ${flavor.shortDesc}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Footer Kartu -->
+                    <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-2 flex items-center justify-between gap-2 border-t border-espresso/5">
+                        <button onclick="openFlavorModal(${flavor.id})" class="text-xs font-bold text-espresso hover:text-caramelDark underline underline-offset-4 py-2 transition-colors">
+                            Lihat Detail
+                        </button>
+                        <button onclick="addToCart(${flavor.id})" class="px-4 py-2 rounded-full bg-creamDark hover:bg-espresso text-espresso hover:text-cream text-xs font-semibold transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Pilih</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // FILTER KATALOG EVENT LISTENER
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-espresso', 'text-cream', 'shadow-md');
+                    b.classList.add('bg-creamDark', 'text-espresso');
+                });
+                btn.classList.add('active', 'bg-espresso', 'text-cream', 'shadow-md');
+                btn.classList.remove('bg-creamDark', 'text-espresso');
+                renderFlavors(btn.dataset.filter);
+            });
+        });
+
+        // 4. MODAL DETAIL RASA DENGAN FOTO REAL
+        function openFlavorModal(id) {
+            const flavor = flavorsData.find(f => f.id === id);
+            if (!flavor) return;
+            currentModalFlavor = flavor;
+
+            const modal = document.getElementById('flavor-modal');
+            const modalImg = document.getElementById('modal-image');
+            const fallbackUrl = `https://placehold.co/800x500/${flavor.fallbackBg}/2C1810?text=${encodeURIComponent(flavor.name)}`;
+            
+            modalImg.src = flavor.image;
+            modalImg.alt = flavor.name;
+            modalImg.onerror = function() {
+                this.onerror = null;
+                this.src = fallbackUrl;
+            };
+
+            document.getElementById('modal-category').textContent = flavor.categoryLabel;
+            document.getElementById('modal-origin').querySelector('span').textContent = flavor.origin;
+            document.getElementById('modal-title').textContent = flavor.name;
+            document.getElementById('modal-desc').textContent = flavor.fullDesc;
+            document.getElementById('modal-notes').textContent = flavor.notes;
+            document.getElementById('modal-price').textContent = formatRupiah(flavor.price);
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        document.getElementById('close-modal-btn').addEventListener('click', () => {
+            const modal = document.getElementById('flavor-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+
+        document.getElementById('flavor-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'flavor-modal') {
+                e.target.classList.add('hidden');
+                e.target.classList.remove('flex');
+            }
+        });
+
+        document.getElementById('modal-add-btn').addEventListener('click', () => {
+            if (currentModalFlavor) {
+                addToCart(currentModalFlavor.id);
+                const modal = document.getElementById('flavor-modal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        });
+
+        // 5. RENDER LOKASI CABANG GLOBAL
+        function renderLocations(region = 'all') {
+            const grid = document.getElementById('locations-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const filtered = region === 'all'
+                ? locationsData
+                : locationsData.filter(loc => loc.region === region);
+
+            filtered.forEach(loc => {
+                const card = document.createElement('div');
+                card.className = "bg-white/5 hover:bg-white/10 border border-white/10 hover:border-caramel/50 rounded-3xl p-6 transition-all duration-300 space-y-4";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="px-3 py-1 rounded-full bg-caramel/20 text-caramel text-xs font-bold">
+                            ${loc.badge}
+                        </span>
+                        <span class="text-xs text-cream/60 font-medium">${loc.country}</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-cream">${loc.city}</h3>
+                        <p class="text-sm text-cream/75 mt-1.5 flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-caramel mt-1 shrink-0"></i>
+                            <span>${loc.address}</span>
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-cream/70">
+                        <span class="flex items-center gap-1.5">
+                            <i class="fa-regular fa-clock text-caramel"></i> ${loc.hours}
+                        </span>
+                        <span class="text-caramel font-semibold">Buka</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        document.querySelectorAll('.region-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.region-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-caramel', 'text-espresso');
+                    b.classList.add('bg-white/10', 'text-cream');
+                });
+                btn.classList.add('active', 'bg-caramel', 'text-espresso');
+                btn.classList.remove('bg-white/10', 'text-cream');
+                renderLocations(btn.dataset.region);
+            });
+        });
+
+        // 6. KERANJANG / KOTAK PILIHAN RASA
+        function addToCart(id) {
+            const flavor = flavorsData.find(f => f.id === id);
+            if (!flavor) return;
+
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...flavor, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`${flavor.name} ditambahkan ke kotak pilihan!`);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const container = document.getElementById('cart-items-container');
+            const totalEl = document.getElementById('cart-total');
+
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            if (badge) badge.textContent = totalQty;
+            if (totalEl) totalEl.textContent = formatRupiah(totalPrice);
+
+            if (!container) return;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 space-y-3">
+                        <div class="w-14 h-14 rounded-full bg-creamDark mx-auto flex items-center justify-center text-espresso/40">
+                            <i class="fa-solid fa-ice-cream text-2xl"></i>
+                        </div>
+                        <p class="font-serif text-lg font-semibold text-espresso">Kotak Pilihan Masih Kosong</p>
+                        <p class="text-xs text-espresso/60 max-w-xs mx-auto">Pilih varian es krim artisan favorit Anda dari katalog untuk dipesan di gerai terdekat.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => {
+                const fallbackUrl = `https://placehold.co/120x120/${item.fallbackBg}/2C1810?text=Ice`;
+                return `
+                    <div class="flex items-center justify-between gap-3 bg-creamDark/60 p-3.5 rounded-2xl border border-espresso/10">
+                        <div class="flex items-center gap-3">
+                            <img src="${item.image}" alt="${item.name}" onerror="this.onerror=null;this.src='${fallbackUrl}';" class="w-12 h-12 rounded-xl object-cover shrink-0 border border-espresso/10">
+                            <div>
+                                <h4 class="font-serif font-bold text-sm text-espresso">${item.name}</h4>
+                                <p class="text-xs text-espresso/65">${item.qty}x • ${formatRupiah(item.price)}</p>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-espresso/45 hover:text-berry p-2 transition-colors" aria-label="Hapus item">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Buka / Tutup Drawer Keranjang
+        const cartDrawer = document.getElementById('cart-drawer');
+        document.getElementById('open-cart-btn').addEventListener('click', () => {
+            cartDrawer.classList.remove('hidden');
+            cartDrawer.classList.add('flex');
+        });
+
+        document.getElementById('close-cart-btn').addEventListener('click', () => {
+            cartDrawer.classList.add('hidden');
+            cartDrawer.classList.remove('flex');
+        });
+
+        cartDrawer.addEventListener('click', (e) => {
+            if (e.target.id === 'cart-drawer') {
+                cartDrawer.classList.add('hidden');
+                cartDrawer.classList.remove('flex');
+            }
+        });
+
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            if (cart.length === 0) {
+                showToast('Silakan pilih minimal 1 varian rasa terlebih dahulu.');
+                return;
+            }
+            cart = [];
+            updateCartUI();
+            cartDrawer.classList.add('hidden');
+            cartDrawer.classList.remove('flex');
+            showToast('Reservasi kotak rasa Anda berhasil dikirim ke butik!');
+        });
+
+        // 7. MENU MOBILE & FORMULIR
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Validasi Formulir Franchise
+        document.getElementById('franchise-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('f-name').value.trim();
+            const email = document.getElementById('f-email').value.trim();
+            const phone = document.getElementById('f-phone').value.trim();
+            const city = document.getElementById('f-city').value.trim();
+            const feedback = document.getElementById('form-feedback');
+
+            if (!name || !email || !phone || !city) {
+                feedback.className = "p-4 rounded-xl text-sm font-medium bg-berry/15 text-berry border border-berry/30";
+                feedback.textContent = "Mohon lengkapi semua kolom bertanda bintang (*) sebelum mengirim.";
+                feedback.classList.remove('hidden');
+                return;
+            }
+
+            feedback.className = "p-4 rounded-xl text-sm font-medium bg-mint/15 text-mint border border-mint/30";
+            feedback.textContent = `Terima kasih, ${name}! Permohonan kemitraan untuk wilayah ${city} telah kami terima. Tim Paris HQ akan segera menghubungi Anda.`;
+            feedback.classList.remove('hidden');
+            this.reset();
+        });
+
+        // Newsletter Form
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const msg = document.getElementById('newsletter-msg');
+            msg.textContent = "Terima kasih telah bergabung dengan Buletin Musiman Lumière!";
+            msg.classList.remove('hidden');
+            this.reset();
+        });
+
+        // Animasi Reveal saat Scroll
+        function handleReveal() {
+            document.querySelectorAll('.reveal').forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 80) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleReveal);
+        window.addEventListener('DOMContentLoaded', () => {
+            renderFlavors();
+            renderLocations();
+            updateCartUI();
+            handleReveal();
+        });
+    </script>
+</body>
+</html>
